@@ -3,33 +3,37 @@
     ViewData["Title"] = "Add";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-<div class="container">
-    <form action="" method="post" enctype="multipart/form-data">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Movie.Name" class="control-label"></label>
-            <input asp-for="Movie.Name" class="control-label" id="name" />
-            <span asp-validation-for="Movie.Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Movie.Descreption" class="control-label"></label>
-            <textarea asp-for="Movie.Descreption" class="control-label" id="descreption"></textarea>
-            <span asp-validation-for="Movie.Descreption" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Movie.CategoryId" class="control-label">Kategori Seçiniz</label>
-            <select asp-for="Movie.CategoryId" class="form-control">
-                @foreach (var item in Model.Categories)
-                {
-                    <option id="categoryId" value="@item.Id">@item.Name</option>
-                }
-            </select>
-        </div>
-        <input type="file" id="files" name="files" multiple formenctype="multipart/form-data" style="visibility:hidden" />
-    </form>
-</div>
+    <div class="container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div id="alert" class="alert alert-success" style="visibility:hidden">
+                Film Eklendi
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Movie.Name" class="control-label"></label>
+                <input asp-for="@Model.Movie.Name" class="control-label" id="name" />
+                <span asp-validation-for="Movie.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.Descreption" class="control-label"></label>
+                <textarea asp-for="Movie.Descreption" class="control-label" id="descreption"></textarea>
+                <span asp-validation-for="Movie.Descreption" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Movie.CategoryId" class="control-label">Kategori Seçiniz</label>
+                <select asp-for="Movie.CategoryId" class="form-control">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option id="categoryId" value="@item.Id">@item.Name</option>
+                    }
+                </select>
+            </div>
+            <input type="file" id="files" name="files" multiple formenctype="multipart/form-data" style="visibility:hidden" />
+        </form>
+        <a class=" btn btn-primary" id="sil" onclick="sil()" asp-action="Add" style="visibility:hidden">Yeni Film Ekle</a>
+    </div>
 <button class="btn-warning" id="post" onclick="post()">Resim Ekle</button>
-<button class="btn-primary" id="sil" onclick="sil()" style="visibility:hidden">Yeni film ekle</button>
+
 
 @section Scripts{
     <script>
@@ -57,8 +61,9 @@
              $("#post").css({ "visibility": "hidden" });
              
          });
-        $("#files").click(function () {
-             $("#sil").css({ "visibility": "visible" });
+        $("#files").on('filebatchuploadcomplete', function () {
+            $("#sil").css({ "visibility": "visible" });
+            $("#alert").css({ "visibility": "visible" });
         });
     </script>
 }

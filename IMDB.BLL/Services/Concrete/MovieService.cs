@@ -33,7 +33,6 @@ namespace IMDB.BLL.Services.Concrete
         }
         public void Add(MovieDTO model,int categoryId, List<IFormFile> files,string name,string descreption)
         {
-
             model.Name = name;
             model.CategoryId = categoryId;
             model.Descreption = descreption;

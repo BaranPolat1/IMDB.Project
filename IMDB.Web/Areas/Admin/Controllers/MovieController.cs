@@ -30,9 +30,9 @@ namespace IMDB.Web.Areas.Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Add(MovieCategoryVM model,int categoryId, List<IFormFile> files,string name,string descreption)
+        public IActionResult Add(MovieDTO model,int categoryId, List<IFormFile> files,string name,string descreption)
         {
-           movieService.Add(model.Movie, categoryId, files, name, descreption);
+           movieService.Add(model, categoryId, files, name, descreption);
             return new JsonResult("");
         }
         [HttpGet]
