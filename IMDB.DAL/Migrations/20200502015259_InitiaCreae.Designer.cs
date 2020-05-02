@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMDB.DAL.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200501230943_IniitalCreate")]
-    partial class IniitalCreate
+    [Migration("20200502015259_InitiaCreae")]
+    partial class InitiaCreae
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -159,11 +159,18 @@ namespace IMDB.DAL.Migrations
 
             modelBuilder.Entity("IMDB.Entites.Entity.UserMovie", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 

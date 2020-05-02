@@ -8,7 +8,7 @@ namespace IMDB.BLL.Services.Abstract
 {
     public interface ICategoryService
     {
-        ICollection<CategoryDTO> GetList();
+        List<CategoryDTO> GetList();
         void Add(CategoryDTO model);
         void Delete(int Id);
         void Update(CategoryDTO category);

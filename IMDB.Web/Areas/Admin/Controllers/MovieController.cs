@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using IMDB.BLL.Services.Abstract;
+using IMDB.Entites.Entity;
 using IMDB.Infrastructure.DTO;
+using IMDB.Infrastructure.VM;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,26 +16,41 @@ namespace IMDB.Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class MovieController : Controller
     {
+        private ICategoryService _categoryService;
         private IMovieService movieService;
-        public MovieController(IMovieService _movieService)
+        public MovieController(IMovieService _movieService, ICategoryService categoryService)
         {
+            _categoryService = categoryService;
              movieService = _movieService;
         }
         [HttpGet]
-        public IActionResult Add()
+        public IActionResult Add(MovieCategoryVM model)
         {
-            return View();
+            model.Categories = _categoryService.GetList();
+            return View(model);
         }
         [HttpPost]
-        public IActionResult Add(MovieDTO model, int categoryId,List<IFormFile> files,string name,string descreption)
+        public IActionResult Add(MovieCategoryVM model,int categoryId, List<IFormFile> files,string name,string descreption)
         {
-            movieService.Add(model, categoryId, files, name, descreption);
+           movieService.Add(model.Movie, categoryId, files, name, descreption);
             return new JsonResult("");
         }
-        [HttpPost]
+        [HttpGet]
         public IActionResult Edit(int Id)
         {
-            return View(movieService.GetById(Id)); 
+            return View(movieService.Update(Id));
         }
+        [HttpPost]
+        public IActionResult Edit(MovieDTO model)
+        {   
+            movieService.Update(model);
+            return RedirectToAction("List");
+        }
+
+        public IActionResult List()
+        {
+            return View(movieService.GetList());
+        }
+
     }
 }

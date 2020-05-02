@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IMDB.DAL.Migrations
 {
-    public partial class IniitalCreate : Migration
+    public partial class InitiaCreae : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -201,11 +201,14 @@ namespace IMDB.DAL.Migrations
                 name: "UserMovies",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     AppUserId = table.Column<string>(nullable: true),
                     MovieId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_UserMovies", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserMovies_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,

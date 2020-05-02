@@ -16,7 +16,7 @@ namespace IMDB.Web.Controllers
     {
         private UserManager<AppUser> _userManager;
         private SignInManager<AppUser> _signInManager;
-        public AuthController(IAuthService authService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AuthController( UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

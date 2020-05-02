@@ -16,6 +16,10 @@ namespace IMDB.Infrastructure.DTO
         public string Descreption { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public DateTime? AddedDate { get; set; }
+        public string[] IdToAdd { get; set; }
+        public string[] IdToDelete { get; set; }
+        public IEnumerable<AppUser> Member { get; set; }
+        public IEnumerable<AppUser> NonMember { get; set; }
 
         public List<string> ImagePaths { get; set; }
 

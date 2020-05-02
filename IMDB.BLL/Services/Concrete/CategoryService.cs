@@ -42,7 +42,7 @@ namespace IMDB.BLL.Services.Concrete
             return model;
         }
 
-        public ICollection<CategoryDTO> GetList()
+        public List<CategoryDTO> GetList()
         {
             var category =categoryRepository.GetList();
             var model = _map.Map<List<CategoryDTO>>(category);

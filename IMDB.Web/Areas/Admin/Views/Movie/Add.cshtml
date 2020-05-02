@@ -1,4 +1,4 @@
-﻿@model IMDB.Infrastructure.DTO.MovieDTO
+﻿@model IMDB.Infrastructure.VM.MovieCategoryVM
 @{
     ViewData["Title"] = "Add";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -7,22 +7,32 @@
     <form action="" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="Name" class="control-label"></label>
-            <input asp-for="Name" class="control-label" id="name" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+            <label asp-for="Movie.Name" class="control-label"></label>
+            <input asp-for="Movie.Name" class="control-label" id="name" />
+            <span asp-validation-for="Movie.Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="Descreption" class="control-label"></label>
-            <textarea asp-for="Descreption" class="control-label" id="descreption"></textarea>
-            <span asp-validation-for="Descreption" class="text-danger"></span>
+            <label asp-for="Movie.Descreption" class="control-label"></label>
+            <textarea asp-for="Movie.Descreption" class="control-label" id="descreption"></textarea>
+            <span asp-validation-for="Movie.Descreption" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Movie.CategoryId" class="control-label">Kategori Seçiniz</label>
+            <select asp-for="Movie.CategoryId" class="form-control">
+                @foreach (var item in Model.Categories)
+                {
+                    <option id="categoryId" value="@item.Id">@item.Name</option>
+                }
+            </select>
         </div>
         <input type="file" id="files" name="files" multiple formenctype="multipart/form-data" style="visibility:hidden" />
     </form>
 </div>
 <button class="btn-warning" id="post" onclick="post()">Resim Ekle</button>
+<button class="btn-primary" id="sil" onclick="sil()" style="visibility:hidden">Yeni film ekle</button>
 
 @section Scripts{
-<script>
+    <script>
         function post() {
         $("#files").fileinput({
         language: 'tr',
@@ -38,15 +48,19 @@
         maxImageHeight: 600,
         resizePreference: 'width',
             resizeImageQuality: 0.75,
-            uploadExtraData: { name: $("#name").val(), descreption: $("#descreption").val()}
+            uploadExtraData: { name: $("#name").val(), descreption: $("#descreption").val(), categoryId: $("#categoryId").val()}
         });
         };
 
          $("#post").click(function () {
             $("#files").css({ "visibility": "visible" });
-            $("#post").css({ "visibility": "hidden" });
+             $("#post").css({ "visibility": "hidden" });
+             
          });
-</script>
+        $("#files").click(function () {
+             $("#sil").css({ "visibility": "visible" });
+        });
+    </script>
 }
 
 

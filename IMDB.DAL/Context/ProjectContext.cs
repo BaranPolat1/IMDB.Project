@@ -28,12 +28,12 @@ namespace IMDB.DAL.Context
 
 
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
             
-            builder.Entity<UserMovie>(b => b.HasNoKey());
-            base.OnModelCreating(builder);
-        }
+        //    builder.Entity<UserMovie>(b => b.HasNoKey());
+        //    base.OnModelCreating(builder);
+        //}
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Category> Categories { get; set; }

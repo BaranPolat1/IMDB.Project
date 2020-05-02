@@ -1,0 +1,91 @@
+﻿@model IMDB.Infrastructure.DTO.MovieDTO
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit</h2>
+
+<h4>MovieDTO</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" value="@Model.Id" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descreption" class="control-label"></label>
+                <input asp-for="Descreption" class="form-control" />
+                <span asp-validation-for="Descreption" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <input asp-for="CategoryId" class="form-control" value="@Model.CategoryId" />
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <h6 class="bg-info p-1 text-white">Add to @Model.Name</h6>
+            <table class="table table-bordered table-sm">
+                @if (Model.NonMember.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="2">All User Are Member</td>
+                    </tr>
+                }
+
+                else
+                {
+                    @foreach (var user in Model.NonMember)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>
+                                <input type="checkbox" name="IdToAdd" value="@user.Id" />
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+
+            <h6 class="bg-info p-1 text-white">Delete to @Model.Name</h6>
+            <table class="table table-bordered table-sm">
+                @if (Model.Member.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="2">No User Are Member</td>
+                    </tr>
+                }
+
+                else
+                {
+                    @foreach (var user in Model.Member)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>
+                                <input type="checkbox" name="IdToDelete" value="@user.Id" />
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
