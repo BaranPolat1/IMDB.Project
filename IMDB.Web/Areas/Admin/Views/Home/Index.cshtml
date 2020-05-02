@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IMDB.Infrastructure.DTO.MovieDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@foreach (var item in Model)
+{
+    <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">Movie</strong>
+                <h3 class="mb-0">@item.Name</h3>
+                <div class="mb-1 text-muted">@item.AddedDate</div>
+                <p class="card-text mb-auto">
+                    @if (item.Descreption.Length > 50)
+                    {
+                        item.Descreption.Substring(0, 50);
+                    }
+                    else
+                    {
+                        @item.Descreption
+                    }
+            </p>
+            <a asp-action="Details" asp-controller="Movie" asp-route-Id="@item.Id" class="stretched-link">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+            @if (@item.ImagePaths != null)
+            {
+                <img src="~/media/movie/@Url.Content(item.ImagePaths[0])" alt="Image" class="rounded-circle" style="width:200px; height:250px;">
+            }
+        </div>
+        <a class="text-primary" asp-action="Edit" asp-controller="Movie" asp-route-Id="@item.Id">Edit</a> |
+        <a class="text-danger" asp-action="Delete" asp-controller="Movie" asp-route-Id="@item.Id">Delete</a>
+        </div>
+    </div>
+
+}
+
+

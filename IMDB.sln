@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.Base", "IMDB.Base\IMDB.Base.csproj", "{DF292202-152B-4ED6-ACEA-256213AE9243}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.Entites", "IMDB.Entites\IMDB.Entites.csproj", "{1991DB10-EDFD-43BB-BF5E-7BDDA015A2BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.DAL", "IMDB.DAL\IMDB.DAL.csproj", "{4079FCEC-470B-4FDD-9F3E-21BBA4161BBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.Infrastructure", "IMDB.Infrastructure\IMDB.Infrastructure.csproj", "{FFF657C1-4DFF-4885-A171-DD88A8B182C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.BLL", "IMDB.BLL\IMDB.BLL.csproj", "{4F9721D8-2391-45AF-8045-DFFEB0EBA2EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMDB.Web", "IMDB.Web\IMDB.Web.csproj", "{DF048F95-557E-492D-B5B0-3FED6DCD22F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF292202-152B-4ED6-ACEA-256213AE9243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF292202-152B-4ED6-ACEA-256213AE9243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF292202-152B-4ED6-ACEA-256213AE9243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF292202-152B-4ED6-ACEA-256213AE9243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1991DB10-EDFD-43BB-BF5E-7BDDA015A2BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1991DB10-EDFD-43BB-BF5E-7BDDA015A2BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1991DB10-EDFD-43BB-BF5E-7BDDA015A2BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1991DB10-EDFD-43BB-BF5E-7BDDA015A2BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4079FCEC-470B-4FDD-9F3E-21BBA4161BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4079FCEC-470B-4FDD-9F3E-21BBA4161BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4079FCEC-470B-4FDD-9F3E-21BBA4161BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4079FCEC-470B-4FDD-9F3E-21BBA4161BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF657C1-4DFF-4885-A171-DD88A8B182C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF657C1-4DFF-4885-A171-DD88A8B182C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF657C1-4DFF-4885-A171-DD88A8B182C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF657C1-4DFF-4885-A171-DD88A8B182C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F9721D8-2391-45AF-8045-DFFEB0EBA2EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F9721D8-2391-45AF-8045-DFFEB0EBA2EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F9721D8-2391-45AF-8045-DFFEB0EBA2EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F9721D8-2391-45AF-8045-DFFEB0EBA2EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF048F95-557E-492D-B5B0-3FED6DCD22F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF048F95-557E-492D-B5B0-3FED6DCD22F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF048F95-557E-492D-B5B0-3FED6DCD22F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF048F95-557E-492D-B5B0-3FED6DCD22F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75172907-86BD-4083-B19B-7989A1EE3AD5}
+	EndGlobalSection
+EndGlobal

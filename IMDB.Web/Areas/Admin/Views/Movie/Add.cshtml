@@ -1,0 +1,53 @@
+﻿@model IMDB.Infrastructure.DTO.MovieDTO
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <form action="" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="control-label" id="name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Descreption" class="control-label"></label>
+            <textarea asp-for="Descreption" class="control-label" id="descreption"></textarea>
+            <span asp-validation-for="Descreption" class="text-danger"></span>
+        </div>
+        <input type="file" id="files" name="files" multiple formenctype="multipart/form-data" style="visibility:hidden" />
+    </form>
+</div>
+<button class="btn-warning" id="post" onclick="post()">Resim Ekle</button>
+
+@section Scripts{
+<script>
+        function post() {
+        $("#files").fileinput({
+        language: 'tr',
+        uploadAsync: true,
+        dropZoneTitle: "Please drop here pictures",
+        browseLabel: "Please choose picture",
+        uploadLabel: "Upload",
+        uploadUrl: "@Url.Action("Add","Movie")",
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFileCount: 4,
+        resizeImage: true,
+        maxImageWidth: 800,
+        maxImageHeight: 600,
+        resizePreference: 'width',
+            resizeImageQuality: 0.75,
+            uploadExtraData: { name: $("#name").val(), descreption: $("#descreption").val()}
+        });
+        };
+
+         $("#post").click(function () {
+            $("#files").css({ "visibility": "visible" });
+            $("#post").css({ "visibility": "hidden" });
+         });
+</script>
+}
+
+
+
