@@ -12,23 +12,32 @@
     <link href="~/css/_all-skins.min.css" rel="stylesheet" />
     <link href="~/css/ionicons.min.css" rel="stylesheet" />
     <link href="~/css/blue.css" rel="stylesheet" />
-
-
+    <link href="~/css/morris.css" rel="stylesheet" />
+    <link href="~/css/jquery-jvectormap.css" rel="stylesheet" />
+    <link href="~/css/daterangepicker.css" rel="stylesheet" />
+    <link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/css/blue.css" rel="stylesheet" />
+    <link href="~/css/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+    <style>
+        .color{
+            color:white;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color:black">
     <header>
         @await Html.PartialAsync("_NavBarPartialAdmin")
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="color:white">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - IMDB.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+      <footer class="border-top footer text-muted">
+          <div class="container">
+              <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="Admin"><img style="width:64px; height:32px;" src="~/media/NavBarImage/logo.jpg"></a>
+              <a class="navbar-brand" href="#"><img style="width:54px; height:32px;" src="~/media/FooterImage/insta.png"></a>
+          </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -40,6 +49,20 @@
     <script src="~/js/jquery.slimscroll.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/icheck.min.js"></script>
+    <script src="~/js/raphael.min.js"></script>
+    <script src="~/js/moment.min.js"></script>
+    <script src="~/js/morris.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/js/jquery.knob.min.js"></script>
+    <script src="~/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/js/jquery.sparkline.min.js"></script>
+    <script src="~/js/daterangepicker.js"></script>
+    <script src="~/js/dashboard.js"></script>
+    <script src="~/js/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -53,10 +53,7 @@
         <dd>
             @if (Model.Images != null)
             {
-                @foreach (var item in Model.Images)
-                {
-                    <img src="~/media/movie/@Url.Content(item.Path)" style="width:150px; height:150px;">
-                }
+               <img src="~/media/movie/@Url.Content(Model.Images[0].Path)" style="width:150px; height:150px;">
             }
         </dd>
     </dl>

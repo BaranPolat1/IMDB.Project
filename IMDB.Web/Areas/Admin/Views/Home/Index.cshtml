@@ -3,46 +3,39 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@foreach (var item in Model)
-{
-    <div class="col-md-6">
-        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column position-static">
-                <strong class="d-inline-block mb-2 text-primary">Movie</strong>
-                <h3 class="mb-0">@item.Name</h3>
-                <div class="mb-1 text-muted">@item.AddedDate</div>
-                <p class="card-text mb-auto">
-                    @if (item.Descreption != null)
-                    {
+
+    <div class="row mb-2">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary">Movie</strong>
+                        <h3 class="mb-0">@item.Name</h3>
+                        <div class="mb-1 text-muted">@item.AddedDate</div>
                         @if (item.Descreption.Length > 50)
                         {
-                            item.Descreption.Substring(0, 50);
+                            <p class="card-text mb-auto">@item.Descreption.Substring(50)...</p>
                         }
                         else
                         {
-                            @item.Descreption
+                            <p class="card-text mb-auto">@item.Descreption</p>
                         }
-                    }
-                   
-
-                </p>
-            <a asp-action="Details" asp-controller="Movie" asp-route-Id="@item.Id" class="stretched-link">Continue reading</a>
-        </div>
-            <div class="col-auto d-none d-lg-block">
-                @if (@item.Images != null)
-                {
-                    foreach (var item2 in item.Images)
-                    {
-                        <img src="~/media/movie/@Url.Content(item2.Path)" style="width:150px; height:150px;">
-                    }
-
-                }
+                        <a asp-action="Details" asp-controller="Movie" asp-route-Id="@item.Id" class="stretched-link">Continue reading</a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        @if (@item.Images != null)
+                        {
+                            foreach (var item2 in item.Images)
+                            {
+                                    <img src="~/media/movie/@Url.Content(item.Images[0].Path)" style="width:150px; height:150px;">
+                                }
+                            }
+                    </div>
+                </div>
             </div>
-        <a class="text-primary" asp-action="Edit" asp-controller="Movie" asp-route-Id="@item.Id">Edit</a> |
-        <a class="text-danger" asp-action="Delete" asp-controller="Movie" asp-route-Id="@item.Id">Delete</a>
-        </div>
+        }
     </div>
 
-}
 
 
