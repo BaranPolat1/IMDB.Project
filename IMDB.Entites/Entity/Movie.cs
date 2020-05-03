@@ -1,8 +1,10 @@
 ﻿using IMDB.Base.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+
 
 namespace IMDB.Entites.Entity
 {
@@ -11,12 +13,13 @@ namespace IMDB.Entites.Entity
         public string Name { get; set; }
         public string Descreption { get; set; }
         public DateTime? ReleaseDate { get; set; }
-        [NotMapped]
-        public List<string> ImagePaths { get; set; }
-
+   
+       
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
-       [NotMapped]
+       
         public ICollection<UserMovie> UserMovies { get; set; }
+        public ICollection<MovieImages> Images { get; set; }
+
     }
 }

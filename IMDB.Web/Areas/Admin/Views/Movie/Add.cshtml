@@ -10,61 +10,50 @@
             </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="@Model.Movie.Name" class="control-label"></label>
-                <input asp-for="@Model.Movie.Name" class="control-label" id="name" />
+                <label asp-for="@Model.Movie.Name" class="control-label">Movie Name</label>
+                <input asp-for="@Model.Movie.Name" type="text" class="form-control" id="name" />
                 <span asp-validation-for="Movie.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Movie.Descreption" class="control-label"></label>
-                <textarea asp-for="Movie.Descreption" class="control-label" id="descreption"></textarea>
+                <label asp-for="Movie.Descreption" class="control-label">Movie Descreption</label>
+                <textarea asp-for="Movie.Descreption" class="form-control" id="descreption"></textarea>
                 <span asp-validation-for="Movie.Descreption" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Movie.CategoryId" class="control-label">Kategori Seçiniz</label>
-                <select asp-for="Movie.CategoryId" class="form-control">
+                <select asp-for="Movie.CategoryId" class="control-label">
                     @foreach (var item in Model.Categories)
                     {
                         <option id="categoryId" value="@item.Id">@item.Name</option>
                     }
                 </select>
             </div>
-            <input type="file" id="files" name="files" multiple formenctype="multipart/form-data" style="visibility:hidden" />
+           <input type="button" class="alert-success" id="ekle" value="Ekle" />
         </form>
-        <a class=" btn btn-primary" id="sil" onclick="sil()" asp-action="Add" style="visibility:hidden">Yeni Film Ekle</a>
-    </div>
-<button class="btn-warning" id="post" onclick="post()">Resim Ekle</button>
+      </div>
+
+
 
 
 @section Scripts{
     <script>
-        function post() {
-        $("#files").fileinput({
-        language: 'tr',
-        uploadAsync: true,
-        dropZoneTitle: "Please drop here pictures",
-        browseLabel: "Please choose picture",
-        uploadLabel: "Upload",
-        uploadUrl: "@Url.Action("Add","Movie")",
-        allowedFileExtensions: ['jpg', 'png', 'gif'],
-        maxFileCount: 4,
-        resizeImage: true,
-        maxImageWidth: 800,
-        maxImageHeight: 600,
-        resizePreference: 'width',
-            resizeImageQuality: 0.75,
-            uploadExtraData: { name: $("#name").val(), descreption: $("#descreption").val(), categoryId: $("#categoryId").val()}
-        });
+      document.querySelector("#ekle").addEventListener('click', ekle);
+        function ekle() {
+            var name = $("#name").val();
+            var categoryId = $("#categoryId").val();
+            var descreption = $("#descreption").val();
+            $.ajax({
+                dataType: 'JSON',
+                data: { "name": name, "categoryId": categoryId, "descreption": descreption },
+                type: 'POST',
+                url: "/Admin/Movie/Add",
+                success: function () {
+                    $("#alert").css({ "visibility": "visible" });
+                }
+            });
         };
-
-         $("#post").click(function () {
-            $("#files").css({ "visibility": "visible" });
-             $("#post").css({ "visibility": "hidden" });
-             
-         });
-        $("#files").on('filebatchuploadcomplete', function () {
-            $("#sil").css({ "visibility": "visible" });
-            $("#alert").css({ "visibility": "visible" });
-        });
+        
+       
     </script>
 }
 

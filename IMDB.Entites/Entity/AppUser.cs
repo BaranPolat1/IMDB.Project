@@ -13,7 +13,7 @@ namespace IMDB.Entites.Entity
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
 
-        [NotMapped]
+        
         public ICollection<UserMovie> UserMovie { get; set; }
 
     }

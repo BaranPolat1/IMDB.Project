@@ -38,6 +38,7 @@ namespace IMDB.DAL.Context
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<UserMovie> UserMovies { get; set; }
+       
 
     }
 }

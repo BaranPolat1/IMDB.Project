@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IMDB.DAL.Migrations
 {
-    public partial class InitiaCreae : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -198,6 +198,29 @@ namespace IMDB.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MovieImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AddedDate = table.Column<DateTime>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    Path = table.Column<string>(nullable: true),
+                    MovieId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MovieImages_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserMovies",
                 columns: table => new
                 {
@@ -263,6 +286,11 @@ namespace IMDB.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MovieImages_MovieId",
+                table: "MovieImages",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Movies_CategoryId",
                 table: "Movies",
                 column: "CategoryId");
@@ -294,6 +322,9 @@ namespace IMDB.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "MovieImages");
 
             migrationBuilder.DropTable(
                 name: "UserMovies");

@@ -22,8 +22,10 @@ namespace IMDB.BLL.DependencyResolvers
             builder.RegisterType<AppUserService>().As<IAppUserService>().InstancePerLifetimeScope();
             builder.RegisterType<CategoryService>().As<ICategoryService>().InstancePerLifetimeScope();
             builder.RegisterType<MovieUserService>().As<IMovieUserService>().InstancePerLifetimeScope();
-          
+            builder.RegisterType<MovieImageService>().As<IMovieImageService>().InstancePerLifetimeScope();
             builder.RegisterType<MovieService>().As<IMovieService>().InstancePerLifetimeScope();
+
+            builder.RegisterType<MovieImageRepositoryEF>().As<IMovieImageRepository>().InstancePerLifetimeScope();
             builder.RegisterType<AppUserRepositoryEF>().As<IAppUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<MovieRepositoryEF>().As<IMovieRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CategoryRepositoryEF>().As<ICategoryRepository>().InstancePerLifetimeScope();

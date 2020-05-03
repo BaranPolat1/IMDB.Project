@@ -12,23 +12,32 @@
                 <h3 class="mb-0">@item.Name</h3>
                 <div class="mb-1 text-muted">@item.AddedDate</div>
                 <p class="card-text mb-auto">
-                    @if (item.Descreption.Length > 50)
+                    @if (item.Descreption != null)
                     {
-                        item.Descreption.Substring(0, 50);
+                        @if (item.Descreption.Length > 50)
+                        {
+                            item.Descreption.Substring(0, 50);
+                        }
+                        else
+                        {
+                            @item.Descreption
+                        }
                     }
-                    else
-                    {
-                        @item.Descreption
-                    }
-            </p>
+                   
+
+                </p>
             <a asp-action="Details" asp-controller="Movie" asp-route-Id="@item.Id" class="stretched-link">Continue reading</a>
         </div>
-        <div class="col-auto d-none d-lg-block">
-            @if (@item.ImagePaths != null)
-            {
-                <img src="~/media/movie/@Url.Content(item.ImagePaths[0])" alt="Image" class="rounded-circle" style="width:200px; height:250px;">
-            }
-        </div>
+            <div class="col-auto d-none d-lg-block">
+                @if (@item.Images != null)
+                {
+                    foreach (var item2 in item.Images)
+                    {
+                        <img src="~/media/movie/@Url.Content(item2.Path)" style="width:150px; height:150px;">
+                    }
+
+                }
+            </div>
         <a class="text-primary" asp-action="Edit" asp-controller="Movie" asp-route-Id="@item.Id">Edit</a> |
         <a class="text-danger" asp-action="Delete" asp-controller="Movie" asp-route-Id="@item.Id">Delete</a>
         </div>

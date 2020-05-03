@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMDB.DAL.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200502015259_InitiaCreae")]
-    partial class InitiaCreae
+    [Migration("20200503043850_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,6 +155,35 @@ namespace IMDB.DAL.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("IMDB.Entites.Entity.MovieImages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("MovieImages");
                 });
 
             modelBuilder.Entity("IMDB.Entites.Entity.UserMovie", b =>
@@ -319,14 +348,23 @@ namespace IMDB.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("IMDB.Entites.Entity.MovieImages", b =>
+                {
+                    b.HasOne("IMDB.Entites.Entity.Movie", "Movie")
+                        .WithMany("Images")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IMDB.Entites.Entity.UserMovie", b =>
                 {
                     b.HasOne("IMDB.Entites.Entity.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("UserMovie")
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("IMDB.Entites.Entity.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("UserMovies")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

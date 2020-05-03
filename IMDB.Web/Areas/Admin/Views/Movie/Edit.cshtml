@@ -1,4 +1,4 @@
-﻿@model IMDB.Infrastructure.DTO.MovieDTO
+﻿@model IMDB.Infrastructure.VM.MovieCategoryVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -9,31 +9,35 @@
 
 <h4>MovieDTO</h4>
 <hr />
-<div class="row">
+<div class="container">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" value="@Model.Id" />
-
+            <input type="hidden" value="@Model.Movie.Id" id="movieId" />
+            <div id="alert" class="alert alert-success" style="visibility:hidden">Fotoğraf Yüklendi</div>
+            <div id="alert2" class="alert alert-success" style="visibility:hidden">Film Güncellendi</div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Movie.Name" class="control-label"></label>
+                <input asp-for="Movie.Name" class="form-control" id="name" />
+                <span asp-validation-for="Movie.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descreption" class="control-label"></label>
-                <input asp-for="Descreption" class="form-control" />
-                <span asp-validation-for="Descreption" class="text-danger"></span>
+                <label asp-for="Movie.Descreption" class="control-label"></label>
+                <input asp-for="Movie.Descreption" class="form-control" id="descreption" />
+                <span asp-validation-for="Movie.Descreption" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" value="@Model.CategoryId" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                <label asp-for="Movie.CategoryId" class="control-label">Kategori Seçiniz</label>
+                <select asp-for="Movie.CategoryId" class="control-label">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option id="categoryId" value="@item.Id">@item.Name</option>
+                    }
+                </select>
             </div>
-            <h6 class="bg-info p-1 text-white">Add to @Model.Name</h6>
+            <h6 class="bg-info p-1 text-white">Add to @Model.Movie.Name</h6>
             <table class="table table-bordered table-sm">
-                @if (Model.NonMember.Count() == 0)
+                @if (Model.Movie.NonMember.Count() == 0)
                 {
                     <tr>
                         <td colspan="2">All User Are Member</td>
@@ -42,12 +46,12 @@
 
                 else
                 {
-                    @foreach (var user in Model.NonMember)
+                    @foreach (var user in Model.Movie.NonMember)
                     {
                         <tr>
                             <td>@user.UserName</td>
                             <td>
-                                <input type="checkbox" name="IdToAdd" value="@user.Id" />
+                                <input type="checkbox" name="IdToAdd" value="@user.Id" id="IdToAdd" />
                             </td>
                         </tr>
                     }
@@ -55,9 +59,9 @@
 
             </table>
 
-            <h6 class="bg-info p-1 text-white">Delete to @Model.Name</h6>
+            <h6 class="bg-info p-1 text-white">Delete to @Model.Movie.Name</h6>
             <table class="table table-bordered table-sm">
-                @if (Model.Member.Count() == 0)
+                @if (Model.Movie.Member.Count() == 0)
                 {
                     <tr>
                         <td colspan="2">No User Are Member</td>
@@ -66,12 +70,12 @@
 
                 else
                 {
-                    @foreach (var user in Model.Member)
+                    @foreach (var user in Model.Movie.Member)
                     {
                         <tr>
                             <td>@user.UserName</td>
                             <td>
-                                <input type="checkbox" name="IdToDelete" value="@user.Id" />
+                                <input type="checkbox" name="IdToDelete" value="@user.Id" id="idToAdd" />
                             </td>
                         </tr>
                     }
@@ -79,9 +83,13 @@
 
             </table>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="file" id="files" name="files" multiple formenctype="multipart/form-data" />
+                <input type="button" class="btn btn-primary" id="gonder" value="Kaydet" />
             </div>
         </form>
+       
+       
+        
     </div>
 </div>
 
@@ -89,3 +97,44 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts{
+    <script>
+        $("#files").fileinput({
+        language: 'tr',
+        uploadAsync: true,
+        dropZoneTitle: "Please drop here pictures",
+        browseLabel: "Please choose picture",
+        uploadLabel: "Upload",
+        uploadUrl: '@Url.Action("AddMovieImage","Movie")',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFileCount: 4,
+        resizeImage: true,
+        maxImageWidth: 800,
+        maxImageHeight: 600,
+        resizePreference: 'width',
+         resizeImageQuality: 0.75,
+         uploadExtraData: {Id: $("#movieId").val() }
+        });
+        $("#files").on('filebatchuploadcomplete', function () {
+            $("#alert").css({ "visibility": "visible" });
+        });
+        document.querySelector("#gonder").addEventListener('click', gonder);
+        function gonder() {
+            var name = $("#name").val();
+            var categoryId = $("#categoryId").val();
+            var descreption = $("#descreption").val();
+            var IdToAdd = $("#IdToAdd").val();
+            var Id = $("#movieId").val();
+            $.ajax({
+                dataType: 'JSON',
+                data: { "name": name, "categoryId": categoryId, "descreption": descreption, "IdToAdd": IdToAdd, "Id": Id },
+                type: 'POST',
+                url: "/Admin/Movie/Edit",
+                 success: function () {
+                    $("#alert2").css({ "visibility": "visible" });
+                }
+            });
+        };
+    
+    </script>
+}

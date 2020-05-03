@@ -18,24 +18,35 @@ namespace IMDB.BLL.Services.Concrete
 {
     public class MovieService : IMovieService
     {
+        private ICategoryService _categoryService;
+        private IMovieImageService _movieImageService;
         private IMovieUserRepository _movieUserRepository;
         private IWebHostEnvironment Environment;
         private IMovieRepository movieRepository;
         private IMapper _map;
         private IAppUserRepository _appUserService;
-        public MovieService(IMovieRepository _movieRepository, IWebHostEnvironment _Environment, IMapper map, IMovieUserRepository movieUserService, IAppUserRepository appUserService)
+        public MovieService(IMovieRepository _movieRepository, IWebHostEnvironment _Environment, IMapper map, IMovieUserRepository movieUserService, IAppUserRepository appUserService, IMovieImageService movieImageService, ICategoryService categoryService)
         {
+            _categoryService = categoryService;
             _appUserService = appUserService;
             _movieUserRepository = movieUserService;
             Environment = _Environment;
             _map = map;
             movieRepository = _movieRepository;
+            _movieImageService = movieImageService;
         }
-        public void Add(MovieDTO model,int categoryId, List<IFormFile> files,string name,string descreption)
+        public void Add(MovieDTO model, string name, string descreption, int categoryId)
         {
             model.Name = name;
-            model.CategoryId = categoryId;
             model.Descreption = descreption;
+            model.CategoryId = categoryId;
+            Movie movie = _map.Map<Movie>(model);
+            movieRepository.Add(movie);
+        }
+    
+        public void AddImage(List<IFormFile> files, int Id)
+        {
+            var movies = movieRepository.Get(x => x.Id == Id);
             string uploadDir = Path.Combine(Environment.WebRootPath, "media/movie");
             if (!Directory.Exists(uploadDir))
             {
@@ -46,20 +57,26 @@ namespace IMDB.BLL.Services.Concrete
                 string fileName = Path.GetFileName(postedFile.FileName);
                 using (FileStream stream = new FileStream(Path.Combine(uploadDir, fileName), FileMode.Create))
                 {
+                    MovieImages movieImages = new MovieImages();
                     postedFile.CopyTo(stream);
-                    model.ImagePaths.Add(fileName);
+                    _movieImageService.Add(movieImages, movies.Id, fileName);
+
                 }
             }
-            Movie movie = new Movie();
-            movie.InjectFrom(model);
-            movieRepository.Add(movie);
-          
         }
 
         public void Delete(int Id)
         {
-            Movie movie =movieRepository.Get(x => x.Id == Id);
+            Movie movie = movieRepository.Get(x => x.Id == Id);
             movieRepository.Delete(movie);
+        }
+
+        public MovieDTO Details(int Id)
+        {
+            var movie = movieRepository.Get(x => x.Id == Id);
+            movie.Images = _movieImageService.GetByMovies(Id);
+            MovieDTO model = _map.Map<MovieDTO>(movie);
+            return model;
         }
 
         public ICollection<MovieDTO> GetByCategory(int categoryId)
@@ -95,10 +112,14 @@ namespace IMDB.BLL.Services.Concrete
         public ICollection<MovieDTO> GetList()
         {
             var movie = movieRepository.GetList();
+            foreach (var item in movie)
+            {
+                item.Images = _movieImageService.GetByMovies(item.Id);
+            }
             List<MovieDTO> model = _map.Map<List<MovieDTO>>(movie);
             return model;
         }
-       public MovieDTO Update(int Id)
+        public MovieCategoryVM Update(int Id)
         {
             var movie = movieRepository.Get(x => x.Id == Id);
             var members = new List<AppUser>();
@@ -106,20 +127,26 @@ namespace IMDB.BLL.Services.Concrete
             var appuser = _appUserService.GetList();
             foreach (var item in appuser)
             {
-                var list = _movieUserRepository.Any(x=>x.AppUserId == item.Id && x.MovieId == movie.Id) ? members : nonmembers;
+                var list = _movieUserRepository.Any(x => x.AppUserId == item.Id && x.MovieId == movie.Id) ? members : nonmembers;
                 list.Add(item);
             }
-            var model = new MovieDTO();
-            model.InjectFrom(movie);
-            model.Member = members;
-            model.NonMember = nonmembers;
+            var model = new MovieCategoryVM();
+            model.Categories = _categoryService.GetList();
+            model.Movie = _map.Map<MovieDTO>(movie);
+            model.Movie.Member = members;
+            model.Movie.NonMember = nonmembers;
             return model;
 
         }
-        public void Update(MovieDTO model)
+        public void Update(MovieDTO model, int Id, string name, string descreption, int categoryId,string[] IdToAdd)
         {
-            var movies = movieRepository.Get(x => x.Id == model.Id);
-            foreach (var userId in model.IdToAdd ?? new string[] { } )
+            model.Id = Id;
+            model.Name = name;
+            model.Descreption = descreption;
+            model.CategoryId = categoryId;
+            model.IdToAdd = IdToAdd;
+            var movies = movieRepository.Get(x => x.Id == Id);
+           foreach (var userId in model.IdToAdd ?? new string[] { })
             {
                 AppUser appUser = _appUserService.Get(x => x.Id == userId);
                 if (appUser != null)
