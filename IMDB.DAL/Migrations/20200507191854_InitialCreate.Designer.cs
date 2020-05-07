@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMDB.DAL.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200503043850_InitialCreate")]
+    [Migration("20200507191854_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

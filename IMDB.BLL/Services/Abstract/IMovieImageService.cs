@@ -8,6 +8,6 @@ namespace IMDB.BLL.Services.Abstract
    public interface IMovieImageService
     {
         void Add(MovieImages image,int movieId,string path);
-        IList<MovieImages> GetByMovies(int movieId);
+        ICollection<MovieImages> GetByMovies(int movieId);
     }
 }

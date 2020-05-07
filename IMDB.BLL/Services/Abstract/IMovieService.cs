@@ -11,9 +11,9 @@ namespace IMDB.BLL.Services.Abstract
 {
    public interface IMovieService
     {
-        public void Update(MovieDTO model,int Id,string name,string descreption,int categoryId,string[] IdToAdd);
+        public void Update(MovieDTO model,int Id,string name,string descreption,string categoryName,string[] IdToAdd);
         public ICollection<MovieDTO> GetList();
-        public void Add(MovieDTO model,string name,string descreption,int categoryId);
+        public void Add(MovieDTO model, string name, string descreption, string categoryName);
         public MovieCategoryVM Update(int Id);
         public void Delete(int Id);
         public MovieDTO GetById(int id);

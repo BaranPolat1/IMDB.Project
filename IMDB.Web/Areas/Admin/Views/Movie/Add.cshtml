@@ -3,57 +3,52 @@
     ViewData["Title"] = "Add";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-    <div class="container color" >
-        <form action="" method="post" enctype="multipart/form-data">
-            <div id="alert" class="alert alert-success" style="visibility:hidden">
-                Film Eklendi
-            </div>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.Movie.Name" class="control-label">Movie Name</label>
-                <input asp-for="@Model.Movie.Name" type="text" class="form-control" id="name" />
-                <span asp-validation-for="Movie.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Movie.Descreption" class="control-label">Movie Descreption</label>
-                <textarea asp-for="Movie.Descreption" class="form-control" id="descreption"></textarea>
-                <span asp-validation-for="Movie.Descreption" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Movie.CategoryId" class="control-label">Kategori Seçiniz</label>
-                <select asp-for="Movie.CategoryId" class="control-label">
-                    @foreach (var item in Model.Categories)
-                    {
-                        <option id="categoryId" value="@item.Id">@item.Name</option>
-                    }
-                </select>
-            </div>
-           <input type="button" class="alert-success" id="ekle" value="Ekle" />
-        </form>
-      </div>
+<form asp-action="" method="post">
+    <div id="alert" class="alert alert-success" style="visibility:hidden">Film Eklendi</div>
+    <div class="form-group col-md-4">
+        <label for="exampleFormControlInput1">Movie Name</label>
+        <input asp-for="Movie.Name" class="form-control" id="name" placeholder="Movie Name" >
+    </div>
+    <div class="form-group col-md-8">
+        <label for="exampleFormControlInput1">Descreption</label>
+        <textarea asp-for="Movie.Descreption" class="form-control" id="descreption" placeholder="Descreption"></textarea>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="categoryName">Please choose Category</label>
+        <select class="form-control" id="categoryName" name="categoryName">
+            @foreach (var item in Model.Categories)
+            {
+                <option>@item.Name</option>
+            }
 
+        </select>
+    </div>
+    <div class="form-group col-md-4">
+        <input type="button" id="ekle" value="Add"/>
+    </div>
+ </form>
 
 
 
 @section Scripts{
     <script>
-      document.querySelector("#ekle").addEventListener('click', ekle);
+        document.querySelector("#ekle").addEventListener('click', ekle);
         function ekle() {
+            //document.getElementById("categoryName").multiple = true;
             var name = $("#name").val();
-            var categoryId = $("#categoryId").val();
+            var categoryName = $("#categoryName").val();
             var descreption = $("#descreption").val();
             $.ajax({
                 dataType: 'JSON',
-                data: { "name": name, "categoryId": categoryId, "descreption": descreption },
+                data: { "name": name, "categoryName": categoryName, "descreption": descreption },
                 type: 'POST',
                 url: "/Admin/Movie/Add",
                 success: function () {
                     $("#alert").css({ "visibility": "visible" });
                 }
             });
+
         };
-        
-       
     </script>
 }
 

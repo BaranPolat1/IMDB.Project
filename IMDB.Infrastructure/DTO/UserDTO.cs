@@ -1,6 +1,7 @@
 ﻿using IMDB.Entites.Entity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace IMDB.Infrastructure.DTO
@@ -16,6 +17,7 @@ namespace IMDB.Infrastructure.DTO
         public string Password { get; set; }
 
         public ICollection<UserMovie> UserMovie { get; set; }
+
 
 
     }

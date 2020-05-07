@@ -9,12 +9,16 @@ namespace IMDB.Entites.Entity
 {
    public class AppUser:IdentityUser
     {
+      
         public string FirstName{ get; set; }
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
 
-        
         public ICollection<UserMovie> UserMovie { get; set; }
+
+     
+        
+        
 
     }
 }

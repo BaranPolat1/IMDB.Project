@@ -7,11 +7,8 @@ namespace IMDB.Infrastructure.VM
 {
     public class MovieCategoryVM
     {
-        public MovieCategoryVM()
-        {
-            Categories = new List<CategoryDTO>();
-        }
+       
         public MovieDTO Movie { get; set; }
-        public List<CategoryDTO> Categories { get; set; }
+        public IList<CategoryDTO> Categories { get; set; }
     }
 }

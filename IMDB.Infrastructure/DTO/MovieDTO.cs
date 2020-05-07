@@ -16,11 +16,11 @@ namespace IMDB.Infrastructure.DTO
         public DateTime? ReleaseDate { get; set; }
         public DateTime? AddedDate { get; set; }
         public string[] IdToAdd { get; set; }
-        public string[] IdToDelete { get; set; }
-        public IEnumerable<AppUser> Member { get; set; }
-        public IEnumerable<AppUser> NonMember { get; set; }
-        public List<MovieImages> Images { get; set; }
+         public IList<AppUser> Member { get; set; }
+        public IList<AppUser> NonMember { get; set; }
+        public IList<MovieImages> Images { get; set; }
         
+
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         

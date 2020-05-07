@@ -17,9 +17,7 @@ namespace IMDB.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-          var result =  movieService.GetList().OrderByDescending(x => x.AddedDate).Take(5);
-           
-           return View(result);
+           return View(movieService.GetList().OrderByDescending(x => x.AddedDate).Take(5));
         }
     }
 }

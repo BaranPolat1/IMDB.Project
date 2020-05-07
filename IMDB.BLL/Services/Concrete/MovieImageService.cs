@@ -23,7 +23,7 @@ namespace IMDB.BLL.Services.Concrete
            
         }
 
-        public IList<MovieImages> GetByMovies(int movieId)
+        public ICollection<MovieImages> GetByMovies(int movieId)
         {
             return _movieImageRepository.GetList(x => x.MovieId == movieId);
         }

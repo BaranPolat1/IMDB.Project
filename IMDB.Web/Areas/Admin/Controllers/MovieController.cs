@@ -21,7 +21,7 @@ namespace IMDB.Web.Areas.Admin.Controllers
         public MovieController(IMovieService _movieService, ICategoryService categoryService)
         {
             _categoryService = categoryService;
-             movieService = _movieService;
+            movieService = _movieService;
         }
         [HttpGet]
         public IActionResult Add(MovieCategoryVM model)
@@ -30,9 +30,10 @@ namespace IMDB.Web.Areas.Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Add(MovieDTO model,string name,string descreption,int categoryId)
+        public IActionResult Add(MovieDTO model, string name, string descreption, string categoryName)
         {
-           movieService.Add(model,name,descreption,categoryId);
+
+            movieService.Add(model, name, descreption, categoryName);
             return new JsonResult("");
         }
         [HttpGet]
@@ -41,12 +42,11 @@ namespace IMDB.Web.Areas.Admin.Controllers
             return View(movieService.Update(Id));
         }
         [HttpPost]
-        public IActionResult Edit(MovieDTO model, int Id,string name,string descreption,int categoryId,string[] IdToAtt)
+        public IActionResult Edit(MovieDTO model, int Id, string name, string descreption, string categoryName, string[] IdToAdd)
         {
-            movieService.Update(model, Id, name, descreption, categoryId,IdToAtt) ;
+            movieService.Update(model, Id, name, descreption, categoryName, IdToAdd);
             return new JsonResult("");
         }
-
         public IActionResult List()
         {
             return View(movieService.GetList());
@@ -57,7 +57,7 @@ namespace IMDB.Web.Areas.Admin.Controllers
             return RedirectToAction("List");
         }
         [HttpPost]
-        public IActionResult AddMovieImage(List<IFormFile> files,int Id)
+        public IActionResult AddMovieImage(List<IFormFile> files, int Id)
         {
             movieService.AddImage(files, Id);
             return new JsonResult("");

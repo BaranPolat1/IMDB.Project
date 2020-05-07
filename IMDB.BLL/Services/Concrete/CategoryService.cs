@@ -42,6 +42,14 @@ namespace IMDB.BLL.Services.Concrete
             return model;
         }
 
+        public CategoryDTO GetByName(string name)
+        {
+            CategoryDTO model = new CategoryDTO();
+            var category = categoryRepository.Get(x => x.Name == name);
+            model.InjectFrom(category);
+            return model;
+        }
+
         public List<CategoryDTO> GetList()
         {
             var category =categoryRepository.GetList();

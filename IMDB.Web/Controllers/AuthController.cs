@@ -16,7 +16,7 @@ namespace IMDB.Web.Controllers
     {
         private UserManager<AppUser> _userManager;
         private SignInManager<AppUser> _signInManager;
-        public AuthController( UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,7 +35,6 @@ namespace IMDB.Web.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM model)
         {
             if (ModelState.IsValid)
@@ -49,7 +48,7 @@ namespace IMDB.Web.Controllers
 
                     if (result.Succeeded)
                     {
-                        return Redirect("/Member/Home");
+                        return Redirect("/Admin/Home");
                     }
                     else
                     {
@@ -66,7 +65,7 @@ namespace IMDB.Web.Controllers
             return View();
         }
         [HttpPost]
-         public async Task<IActionResult> Register(RegisterVM model)
+        public async Task<IActionResult> Register(RegisterVM model)
         {
             if (ModelState.IsValid)
             {

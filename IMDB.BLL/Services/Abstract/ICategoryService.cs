@@ -13,5 +13,6 @@ namespace IMDB.BLL.Services.Abstract
         void Delete(int Id);
         void Update(CategoryDTO category);
         CategoryDTO GetById(int id);
+        CategoryDTO GetByName(string name);
     }
 }

@@ -8,6 +8,7 @@ using IMDB.BLL.AutoMapper;
 using IMDB.BLL.Validation.ValidationFilter;
 using IMDB.DAL.Context;
 using IMDB.Entites.Entity;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,7 +40,8 @@ namespace IMDB.Web
             services.AddSingleton(mapper);
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
-
+            services.AddSignalR();
+            services.AddAuthentication();
             services.AddDbContext<ProjectContext>();
 
             // ===== Add Identity ========
@@ -55,6 +57,7 @@ namespace IMDB.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ProjectContext dbContext)
         {
             if (env.IsDevelopment())
@@ -70,20 +73,24 @@ namespace IMDB.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             dbContext.Database.EnsureCreated();
+            
 
             app.UseMvc();
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
+
 
             app.UseEndpoints(endpoints =>
             {
-
+                endpoints.MapRazorPages();
+                
                 endpoints.MapControllerRoute(
             name: "areas",
             pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-
+               
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

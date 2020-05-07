@@ -10,19 +10,19 @@ using System.Text;
 
 namespace IMDB.DAL.Repository.BaseRepositoryEF
 {
-    public class EntityRepositoryEF<T,TContext> : IEntityRepository<T> where T : class where TContext:DbContext,new()
+    public class EntityRepositoryEF<T, TContext> : IEntityRepository<T> where T : class where TContext : DbContext, new()
     {
-        
-            public void Add(T item)
+
+        public async void Add(T item)
         {
-            using(var db = new TContext())
+            using (var db = new TContext())
             {
                 var addedEntity = db.Entry(item);
                 addedEntity.State = EntityState.Added;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
-           
-            
+
+
         }
 
         public bool Any(Expression<Func<T, bool>> exp)
@@ -33,13 +33,13 @@ namespace IMDB.DAL.Repository.BaseRepositoryEF
             }
         }
 
-        public void Delete(T item)
+        public async void Delete(T item)
         {
             using (var db = new TContext())
             {
                 var deletedEntity = db.Entry(item);
                 deletedEntity.State = EntityState.Deleted;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 
@@ -51,7 +51,7 @@ namespace IMDB.DAL.Repository.BaseRepositoryEF
             }
         }
 
-        public IList<T> GetList(Expression<Func<T, bool>> exp = null)
+        public  IList<T> GetList(Expression<Func<T, bool>> exp = null)
         {
             using (var db = new TContext())
             {
@@ -59,15 +59,15 @@ namespace IMDB.DAL.Repository.BaseRepositoryEF
             }
         }
 
-        public void Update(T item)
+        public async void Update(T item)
         {
             using (var db = new TContext())
             {
                 var updatedEntity = db.Entry(item);
                 updatedEntity.State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
-      
+
     }
 }

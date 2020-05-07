@@ -18,6 +18,7 @@
     <link href="~/css/bootstrap-datepicker.min.css" rel="stylesheet" />
     <link href="~/css/blue.css" rel="stylesheet" />
     <link href="~/css/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+    <link href="~/css/Message.css" rel="stylesheet" />
     <style>
         .color{
             color:white;
@@ -33,11 +34,11 @@
             @RenderBody()
         </main>
     </div>
-      <footer class="border-top footer text-muted">
-          <div class="container">
-              <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="Admin"><img style="width:64px; height:32px;" src="~/media/NavBarImage/logo.jpg"></a>
-              <a class="navbar-brand" href="#"><img style="width:54px; height:32px;" src="~/media/FooterImage/insta.png"></a>
-          </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home" asp-area="Admin"><img style="width:64px; height:32px;" src="~/media/NavBarImage/logo.jpg"></a>
+            <a class="navbar-brand" href="#"><img style="width:54px; height:32px;" src="~/media/FooterImage/insta.png"></a>
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -61,6 +62,10 @@
     <script src="~/js/dashboard.js"></script>
     <script src="~/js/bootstrap3-wysihtml5.all.min.js"></script>
     <script src="~/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
 
 
     @RenderSection("Scripts", required: false)

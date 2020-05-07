@@ -35,15 +35,16 @@ namespace IMDB.BLL.Services.Concrete
             movieRepository = _movieRepository;
             _movieImageService = movieImageService;
         }
-        public void Add(MovieDTO model, string name, string descreption, int categoryId)
+        public void Add(MovieDTO model, string name, string descreption, string categoryName)
         {
+            var category = _categoryService.GetByName(categoryName);
+            model.CategoryId = category.Id;
             model.Name = name;
             model.Descreption = descreption;
-            model.CategoryId = categoryId;
             Movie movie = _map.Map<Movie>(model);
             movieRepository.Add(movie);
         }
-    
+
         public void AddImage(List<IFormFile> files, int Id)
         {
             var movies = movieRepository.Get(x => x.Id == Id);
@@ -75,7 +76,9 @@ namespace IMDB.BLL.Services.Concrete
         {
             var movie = movieRepository.Get(x => x.Id == Id);
             movie.Images = _movieImageService.GetByMovies(Id);
+            var member = _appUserService.GetByMovie(Id);
             MovieDTO model = _map.Map<MovieDTO>(movie);
+            model.Member = member;
             return model;
         }
 
@@ -138,15 +141,18 @@ namespace IMDB.BLL.Services.Concrete
             return model;
 
         }
-        public void Update(MovieDTO model, int Id, string name, string descreption, int categoryId,string[] IdToAdd)
+        public void Update(MovieDTO model, int Id, string name, string descreption, string categoryName, string[] IdToAdd)
         {
             model.Id = Id;
             model.Name = name;
             model.Descreption = descreption;
-            model.CategoryId = categoryId;
+
+            var kategori = _categoryService.GetByName(categoryName);
+            model.CategoryId = kategori.Id;
+
             model.IdToAdd = IdToAdd;
             var movies = movieRepository.Get(x => x.Id == Id);
-           foreach (var userId in model.IdToAdd ?? new string[] { })
+            foreach (var userId in model.IdToAdd ?? new string[] { })
             {
                 AppUser appUser = _appUserService.Get(x => x.Id == userId);
                 if (appUser != null)

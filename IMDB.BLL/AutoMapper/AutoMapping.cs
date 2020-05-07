@@ -14,6 +14,7 @@ namespace IMDB.BLL.AutoMapper
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Movie, MovieDTO>().ReverseMap();
             CreateMap<AppUser, UserDTO>().ReverseMap();
+          
 
         }
     }

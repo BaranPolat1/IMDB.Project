@@ -5,60 +5,59 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<!-- Page Content -->
+<div class="container">
 
-<div>
-    <h4>MovieDTO</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Descreption)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Descreption)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AddedDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AddedDate)
-        </dd>
-        <dt>
-            Category
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt>
-            Images
-        </dt>
-        <dd>
-            @if (Model.Images != null)
+    <!-- Portfolio Item Heading -->
+    <h1 class="my-4">
+        @Model.Name
+        <small>@Model.ReleaseDate</small>
+    </h1>
+
+    <!-- Portfolio Item Row -->
+    <div class="row">
+        @if (Model.Images.Count != 0)
+        {
+            <div class="col-md-8">
+                <img src="~/media/movie/@Url.Content(Model.Images[0].Path)" style="width:750px; height:500px;">
+            </div>
+        }
+        <div class="col-md-4">
+            <h3 class="my-3">Description</h3>
+            <p>@Model.Descreption</p>
+            <h3 class="my-3">Actors</h3>
+
+            @if (Model.Member.Count != 0)
             {
-               <img src="~/media/movie/@Url.Content(Model.Images[0].Path)" style="width:150px; height:150px;">
+                <ul>
+                    @foreach (var item in Model.Member)
+                    {
+                        <li>@item.FirstName + @item.LastName</li>
+                    }
+                </ul>
             }
-        </dd>
-    </dl>
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+    <!-- Related Projects Row -->
+    <h3 class="my-4">Pictures</h3>
+
+    <div class="row">
+        @if (Model.Images.Count != 0)
+        {
+            @foreach (var item in Model.Images)
+            {
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <a href="#">
+                        <img src="~/media/movie/@Url.Content(item.Path)" style="width:500px; height:300px;">
+                    </a>
+                </div>
+            }
+        }
+    </div>
+    <!-- /.row -->
+
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+<!-- /.container -->
