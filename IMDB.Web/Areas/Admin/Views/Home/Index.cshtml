@@ -1,4 +1,8 @@
-﻿@model IEnumerable<IMDB.Infrastructure.DTO.MovieDTO>
+﻿@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
+
+@model IPagedList<IMDB.Infrastructure.DTO.MovieDTO>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -29,15 +33,24 @@
                         foreach (var item2 in item.Images)
                         {
                             <img src="~/media/movie/@Url.Content(item.Images[0].Path)" style="width:150px; height:150px;">
-                             break;
+                            break;
                         }
-                       
+
                     }
                 </div>
             </div>
         </div>
+
     }
+
 </div>
+<hr />
+@Html.PagedListPager((IPagedList)Model, sayfa => Url.Action("Index", new { sayfa }), new X.PagedList.Web.Common.PagedListRenderOptionsBase
+{
+    LiElementClasses = new string[] {"page item"},
+     PageClasses = new string[] { "page-link" },
+     Display = X.PagedList.Web.Common.PagedListDisplayMode.IfNeeded
+})
 
 
 

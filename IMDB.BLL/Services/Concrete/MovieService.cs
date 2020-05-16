@@ -12,6 +12,7 @@ using Omu.ValueInjecter;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace IMDB.BLL.Services.Concrete
@@ -65,13 +66,11 @@ namespace IMDB.BLL.Services.Concrete
                 }
             }
         }
-
         public void Delete(int Id)
         {
             Movie movie = movieRepository.Get(x => x.Id == Id);
             movieRepository.Delete(movie);
         }
-
         public MovieDTO Details(int Id)
         {
             var movie = movieRepository.Get(x => x.Id == Id);
@@ -114,7 +113,7 @@ namespace IMDB.BLL.Services.Concrete
 
         public ICollection<MovieDTO> GetList()
         {
-            var movie = movieRepository.GetList();
+            var movie = movieRepository.GetList().OrderByDescending(x=>x.AddedDate);
             foreach (var item in movie)
             {
                 item.Images = _movieImageService.GetByMovies(item.Id);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMDB.BLL.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace IMDB.Web.Areas.Admin.Controllers
 {
@@ -15,9 +16,10 @@ namespace IMDB.Web.Areas.Admin.Controllers
         {
             movieService = _movieService;
         }
-        public IActionResult Index()
+        public IActionResult Index(int sayfa = 1)
         {
-           return View(movieService.GetList().OrderByDescending(x => x.AddedDate).Take(5));
+            var model = movieService.GetList().ToPagedList(sayfa, 9);
+           return View(model);
         }
     }
 }
