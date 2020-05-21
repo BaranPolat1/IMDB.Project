@@ -14,7 +14,7 @@ namespace IMDB.Entites.Entity
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
 
-        public ICollection<UserMovie> UserMovie { get; set; }
+        public virtual ICollection<UserMovie> UserMovie { get; set; }
 
      
         

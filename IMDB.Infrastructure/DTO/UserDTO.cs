@@ -16,7 +16,7 @@ namespace IMDB.Infrastructure.DTO
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public ICollection<UserMovie> UserMovie { get; set; }
+        public virtual ICollection<UserMovie> UserMovie { get; set; }
 
 
 

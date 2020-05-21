@@ -11,6 +11,7 @@ namespace IMDB.DAL.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+           
             optionsBuilder.UseSqlServer(GetConnectionString());
         }
 

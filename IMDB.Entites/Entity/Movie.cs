@@ -18,8 +18,8 @@ namespace IMDB.Entites.Entity
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
        
-        public ICollection<UserMovie> UserMovies { get; set; }
-        public ICollection<MovieImages> Images { get; set; }
+        public virtual ICollection<UserMovie> UserMovies { get; set; }
+        public virtual ICollection<MovieImages> Images { get; set; }
 
     }
 }

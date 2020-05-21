@@ -18,13 +18,13 @@ namespace IMDB.Infrastructure.DTO
         public string[] IdToAdd { get; set; }
          public IList<AppUser> Member { get; set; }
         public IList<AppUser> NonMember { get; set; }
-        public IList<MovieImages> Images { get; set; }
+        public virtual IList<MovieImages> Images { get; set; }
         
 
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         
-        public ICollection<UserMovie> UserMovies { get; set; }
+        public virtual ICollection<UserMovie> UserMovies { get; set; }
         
     }
 }
