@@ -9,7 +9,10 @@
                 <a class="nav-link" asp-action="Index" asp-controller="Home">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" asp-action="Add" asp-controller="Movie" tabindex="-1" aria-disabled="true">Add Movie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="List" asp-controller="Movie" tabindex="-1" aria-disabled="true">Movie List</a>
             </li>
             @if (User.Identity.IsAuthenticated)
             {

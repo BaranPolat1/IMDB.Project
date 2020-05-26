@@ -17,14 +17,18 @@
                     <strong class="d-inline-block mb-2 text-primary">Movie</strong>
                     <h3 class="mb-0">@item.Name</h3>
                     <div class="mb-1 text-muted">@item.AddedDate</div>
-                    @if (item.Descreption.Length > 50)
+                    @if (item.Descreption != null)
                     {
-                        <p class="card-text mb-auto">@item.Descreption.Substring(50)...</p>
+                        @if (item.Descreption.Length > 50)
+                        {
+                            <p class="card-text mb-auto">@item.Descreption.Substring(50)...</p>
+                        }
+                        else
+                        {
+                            <p class="card-text mb-auto">@item.Descreption</p>
+                        }
                     }
-                    else
-                    {
-                        <p class="card-text mb-auto">@item.Descreption</p>
-                    }
+
                     <a asp-action="Details" asp-controller="Movie" asp-route-Id="@item.Id" class="stretched-link">Continue reading</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">

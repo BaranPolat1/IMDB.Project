@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IMDB.DAL.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200507191854_InitialCreate")]
+    [Migration("20200526202217_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,20 +188,13 @@ namespace IMDB.DAL.Migrations
 
             modelBuilder.Entity("IMDB.Entites.Entity.UserMovie", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
+                    b.HasKey("AppUserId", "MovieId");
 
                     b.HasIndex("MovieId");
 
@@ -361,7 +354,9 @@ namespace IMDB.DAL.Migrations
                 {
                     b.HasOne("IMDB.Entites.Entity.AppUser", "AppUser")
                         .WithMany("UserMovie")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IMDB.Entites.Entity.Movie", "Movie")
                         .WithMany("UserMovies")

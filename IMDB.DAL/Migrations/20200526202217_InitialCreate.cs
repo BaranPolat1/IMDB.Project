@@ -224,20 +224,18 @@ namespace IMDB.DAL.Migrations
                 name: "UserMovies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AppUserId = table.Column<string>(nullable: true),
+                    AppUserId = table.Column<string>(nullable: false),
                     MovieId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserMovies", x => x.Id);
+                    table.PrimaryKey("PK_UserMovies", x => new { x.AppUserId, x.MovieId });
                     table.ForeignKey(
                         name: "FK_UserMovies_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserMovies_Movies_MovieId",
                         column: x => x.MovieId,
@@ -294,11 +292,6 @@ namespace IMDB.DAL.Migrations
                 name: "IX_Movies_CategoryId",
                 table: "Movies",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserMovies_AppUserId",
-                table: "UserMovies",
-                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserMovies_MovieId",

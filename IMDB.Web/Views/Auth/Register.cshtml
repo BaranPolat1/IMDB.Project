@@ -1,40 +1,51 @@
 ﻿@model IMDB.Infrastructure.VM.RegisterVM
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div class="container register-form">
-    <div class="form">
+    <div class="container register-page bg-black" >
         <div class="text-center">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/1200px-IMDB_Logo_2016.svg.png" style="width:500px;height:80px;" />
-        </div><hr />
-              <form asp-action="Register" method="post">
-                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                  <div class="form-content">
-                      <div class="row">
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <input asp-for="FirstName" class="form-control" placeholder="Your Name *" />
-                              </div>
-                              <div class="form-group">
-                                  <input type="text" asp-for="LastName" class="form-control" placeholder="Last Name *" />
-                              </div>
-                              <div class="form-group">
-                                  <input type="password" asp-for="Password" class="form-control" placeholder="Password *" />
-                              </div>
-                          </div>
-                          <div class="col-md-6">
-                              <div class="form-group">
-                                  <input type="text" asp-for="UserName" class="form-control" placeholder="User Name *" />
-                              </div>
-                              <div class="form-group">
-                                  <input type="email" asp-for="Email" class="form-control" placeholder="E mail *" />
-                              </div>
-                          </div>
-                      </div>
-                      <button type="button" class="btnSubmit">Submit</button>
-                  </div>
-              </form>
+        </div>
+        <hr />
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="FirstName" class="control-label"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName" class="control-label"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label"></label>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
-</div>

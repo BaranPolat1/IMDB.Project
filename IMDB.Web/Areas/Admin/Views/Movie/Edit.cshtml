@@ -8,9 +8,9 @@
 <hr />
 <div id="alert" class="alert alert-success" style="visibility:hidden">Fotoğraf Yüklendi</div>
 <div id="alert2" class="alert alert-success" style="visibility:hidden">Film Güncellendi</div>
-<form asp-action="" method="post" enctype="multipart/form-data">
+<form asp-action="" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" value="@Model.Movie.Id" id="movieId" />
+    <input type="hidden" value="@Model.Movie.Id" id="movieId"/>
     <div class="form-group col-md-4">
         <label asp-for="Movie.Name" class="control-label"></label>
         <input asp-for="Movie.Name" class="form-control" id="name" />
@@ -26,7 +26,7 @@
         <select name="categoryName" id="categoryName" class="form-control">
             @foreach (var item in Model.Categories)
             {
-                <option>@item.Name</option>
+                <option value="@item.Name">@item.Name</option>
             }
         </select>
     </div>
@@ -49,7 +49,7 @@
     </div>
     <div class="form-group">
         <input class="col-md-8" type="file" id="files" name="files" multiple formenctype="multipart/form-data" /><hr />
-        <input type="button" class="btn btn-primary" id="gonder" value="Kaydet" multiple />
+        <input type="button" class="btn btn-primary" id="gonder" value="Kaydet" />
     </div>
 </form>
 <div>
@@ -86,7 +86,7 @@
             var IdToAdd = $("#IdToAdd").val();
             var Id = $("#movieId").val();
             $.ajax({
-                dataType: 'JSON',
+                
                 data: { "name": name, "categoryName": categoryName, "descreption": descreption, "IdToAdd": IdToAdd, "Id": Id },
                 type: 'POST',
                 url: "/Admin/Movie/Edit",
